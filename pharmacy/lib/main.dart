@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Pharmacy',
       theme: ThemeData(
           primarySwatch:Colors.teal,
-          scaffoldBackgroundColor: Color(0xff4eb8af),
+          scaffoldBackgroundColor: Color(0xff113936),
           accentColor: Color(0xff022f25),
           secondaryHeaderColor: Color(0xFF222f3e),
           backgroundColor: Color(0xff4eb8af)

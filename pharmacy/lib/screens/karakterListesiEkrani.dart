@@ -1,6 +1,7 @@
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert' as convert;
+import 'dart:convert';
+import '../models/karakter.dart';
 
 class Karakterler extends StatefulWidget {
   @override
@@ -9,41 +10,38 @@ class Karakterler extends StatefulWidget {
 
 class _KarakterlerState extends State<Karakterler> {
 
+  List<Karakter> karakterDizisi=new List<Karakter>();
+
   void karakterlerGetir() async {
 
-
-   // https://www.breakingbadapi.com/api/characters
+   //https://www.breakingbadapi.com/api/characters
+    //
      Response res=await get('https://eczaneleri.net/api/eczane-api?demo=1&type=json');
-     print(res.body);
+     //print(res.body);
 
-/*
-    var url=Uri.parse('https://www.breakingbadapi.com/api/');
-    var response= await http.post(url,body: {'name': 'doodle','color': 'blue'});
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-
-    print(await http.read('https://example.com/foobar.txt'));
+    var tumdata=await jsonDecode(res.body);
 
 
+    setState(() {
+     // print(data['data'][1]);
+
+      for(var i=0; i < tumdata['data'].length; i++){
+        Karakter k=Karakter();
+        k.id=tumdata['data'][i]['CityId'];
+        k.sehirisim=tumdata['data'][i]['CityName'];
+
+        karakterDizisi.add(k);
+
+      }
 
 
-    // This example uses the Google Books API to search for books about http.
-    // https://developers.google.com/books/docs/overview
-    var url =
-    Uri.https('www.breakingbadapi.com', '/api/', {'q': '{http}'});
+    });
+  }
 
-    // Await the http get response, then decode the json-formatted response.
-    var response = await http.get(url);
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      var itemCount = jsonResponse['totalItems'];
-      print('Number of books about http: $itemCount.');
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
-
-
- */
+  @override
+  void initState() {
+    super.initState();
+    karakterlerGetir();
   }
 
   @override
@@ -52,14 +50,28 @@ class _KarakterlerState extends State<Karakterler> {
       appBar: AppBar(
         title: Text('Pharmacy'),
       ),
-      body: Center(
-        child: RaisedButton(
-          onPressed: (){
-           karakterlerGetir();
-          },
-          child: Text('Eczanaleri Getir'),
-        ),
-      ),
+     body: Container(
+       decoration: BoxDecoration(
+         gradient: LinearGradient(
+           begin: Alignment.topRight,
+           end: Alignment.bottomCenter,
+           colors: [Theme.of(context).backgroundColor,Theme.of(context).scaffoldBackgroundColor],
+           tileMode: TileMode.mirror
+         )
+       ),
+       child: ListView.builder(
+         itemCount: karakterDizisi.length,
+         itemBuilder: (context,index){
+           return ListTile(
+             title: Text(karakterDizisi[index].sehirisim,style: TextStyle(color:Theme.of(context).scaffoldBackgroundColor,fontWeight: FontWeight.bold,
+                 fontSize: 20.0),),
+             leading: CircleAvatar(
+               backgroundImage: AssetImage("resimler/doctor.png"),
+             ),
+           );
+         }
+         ),
+     ),
     );
   }
 }
