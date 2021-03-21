@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:pharmacy/screens/karakterListesiEkrani.dart';
 
 void main() {
   runApp(MyApp());
 }
 
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Pharmacy',
+      theme: ThemeData(
+          primarySwatch:Colors.teal,
+          scaffoldBackgroundColor: Color(0xff4eb8af),
+          accentColor: Color(0xff022f25),
+          secondaryHeaderColor: Color(0xFF222f3e),
+          backgroundColor: Color(0xff4eb8af)
+      ),
+      home: Karakterler(),
+    );
+  }
+}
+
+
+/*
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -111,3 +131,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+*/

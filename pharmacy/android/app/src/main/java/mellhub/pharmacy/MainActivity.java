@@ -1,4 +1,4 @@
-package melpharmacy.pharmacy;
+package mellhub.pharmacy;
 
 import io.flutter.embedding.android.FlutterActivity;
 
