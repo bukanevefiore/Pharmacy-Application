@@ -1,4 +1,4 @@
-class Karakter{
+class Eczane{
 
   int id;
   String sehirisim;
@@ -7,6 +7,8 @@ class Karakter{
   String telefon;
   String adres;
   String konum;
+  String ilceName; //areaName
+  String countPharmacy;
 
 /*
 

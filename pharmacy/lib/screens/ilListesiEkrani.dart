@@ -1,7 +1,8 @@
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy/screens/ilceEkraniListesi.dart';
 import 'dart:convert';
-import '../models/karakter.dart';
+import '../models/eczane.dart';
 
 class Karakterler extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class Karakterler extends StatefulWidget {
 
 class _KarakterlerState extends State<Karakterler> {
 
-  List<Karakter> karakterDizisi=new List<Karakter>();
+  List<Eczane> karakterDizisi=new List<Eczane>();
 
   void karakterlerGetir() async {
 
@@ -26,7 +27,7 @@ class _KarakterlerState extends State<Karakterler> {
      // print(data['data'][1]);
 
       for(var i=0; i < tumdata['data'].length; i++){
-        Karakter k=Karakter();
+        Eczane k=Eczane();
         k.id=tumdata['data'][i]['CityId'];
         k.sehirisim=tumdata['data'][i]['CityName'];
 
@@ -62,11 +63,17 @@ class _KarakterlerState extends State<Karakterler> {
        child: ListView.builder(
          itemCount: karakterDizisi.length,
          itemBuilder: (context,index){
-           return ListTile(
-             title: Text(karakterDizisi[index].sehirisim,style: TextStyle(color:Theme.of(context).scaffoldBackgroundColor,fontWeight: FontWeight.bold,
-                 fontSize: 20.0),),
-             leading: CircleAvatar(
-               backgroundImage: AssetImage("resimler/doctor.png"),
+           return GestureDetector(
+             onTap: (){
+               Navigator.push(context, MaterialPageRoute(builder: (_) => Ilceler
+                 (sehirid: karakterDizisi[index].id)));
+             },
+             child: ListTile(
+               title: Text(karakterDizisi[index].sehirisim,style: TextStyle(color:Theme.of(context).scaffoldBackgroundColor,fontWeight: FontWeight.bold,
+                   fontSize: 20.0),),
+               leading: CircleAvatar(
+                 backgroundColor: Color(0xff022f25),//AssetImage('resimler/doctor.jpg'),
+               ),
              ),
            );
          }

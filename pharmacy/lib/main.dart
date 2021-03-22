@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy/screens/karakterListesiEkrani.dart';
+import 'package:pharmacy/screens/ilListesiEkrani.dart';
 
 void main() {
   runApp(MyApp());
