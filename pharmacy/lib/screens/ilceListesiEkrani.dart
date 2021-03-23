@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class _IlcelerState extends State<Ilceler> {
 
 
       for(var i=0; i < tumdata['data'][widget.id-1]['area'].length; i++){
+
         Eczane k=Eczane();
         k.countPharmacy=i+1;
         k.ilceName=tumdata['data'][widget.id -1]['area'][i]['areaName'];
@@ -43,6 +45,7 @@ class _IlcelerState extends State<Ilceler> {
         print("\n");
         ilceDizisi.add(k);
         yukleniyor=true;
+
 
       }
 
@@ -64,7 +67,16 @@ class _IlcelerState extends State<Ilceler> {
       ),
     ): Scaffold(
       appBar: AppBar(
-        title: Text('İlçeler'),
+        title: TypewriterAnimatedTextKit(
+          text: ['İlçeler'],
+          repeatForever: true,
+          textStyle: TextStyle(
+            fontSize: 20.0,
+            fontFamily: "Agne",
+            fontStyle: FontStyle.italic,
+          ),
+          speed: Duration(milliseconds: 500),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -87,7 +99,8 @@ class _IlcelerState extends State<Ilceler> {
                   title: Text(ilceDizisi[index].ilceName,style: TextStyle(color:Theme.of(context).scaffoldBackgroundColor,fontWeight: FontWeight.bold,
                       fontSize: 20.0),),
                   leading: CircleAvatar(
-                    backgroundColor: Color(0xff022f25),//AssetImage('resimler/doctor.jpg'),
+                    backgroundColor: Color(0xff68d5bb),
+                    backgroundImage: AssetImage('assets/resimler/ilce.png'),
                   ),
                 ),
               );

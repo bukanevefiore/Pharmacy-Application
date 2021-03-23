@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
 import '../models/eczane.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:image_fade/image_fade.dart';
 
 
 class EczaneAyrinti extends StatefulWidget {
@@ -57,8 +60,39 @@ class _EczaneAyrintiState extends State<EczaneAyrinti> {
       ),
     ): Scaffold(
       appBar: AppBar(
-        title: Text(e.eczanename),
-
+        title: TypewriterAnimatedTextKit(
+          text: [e.eczanename],
+          repeatForever: true,
+          textStyle: TextStyle(
+              fontSize: 20.0,
+              fontFamily: "Agne",
+              fontStyle: FontStyle.italic,
+          ),
+          speed: Duration(milliseconds: 500),
+        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: ImageFade(
+              image: AssetImage('assets/resimler/ayrinti.png'),
+              height: 100,
+              alignment: Alignment.center,
+              fit: BoxFit.cover,
+              fadeDuration: Duration(seconds: 3),
+              fadeCurve: Curves.bounceInOut,
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
+            width: 250.0,
+            child: Divider(
+              color: Theme.of(context).accentColor,
+            ),
+          )
+        ],
       ),
     );
   }

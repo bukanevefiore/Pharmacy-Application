@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
@@ -63,7 +64,16 @@ class _EczanelerState extends State<Eczaneler> {
       ),
     ): Scaffold(
       appBar: AppBar(
-        title: Text('Eczaneler'),
+        title: TypewriterAnimatedTextKit(
+          text: ['Eczaneler'],
+          repeatForever: true,
+          textStyle: TextStyle(
+            fontSize: 20.0,
+            fontFamily: "Agne",
+            fontStyle: FontStyle.italic,
+          ),
+          speed: Duration(milliseconds: 500),
+        ),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -85,7 +95,8 @@ class _EczanelerState extends State<Eczaneler> {
                   title: Text(eczaneListesi[index].eczanename,style: TextStyle(color:Theme.of(context).scaffoldBackgroundColor,fontWeight: FontWeight.bold,
                       fontSize: 20.0),),
                   leading: CircleAvatar(
-                    backgroundColor: Color(0xff022f25),//AssetImage('resimler/doctor.jpg'),
+                    backgroundColor: Color(0xff68d5bb),
+                    backgroundImage: AssetImage('assets/resimler/doctor.png'),
                   ),
                 ),
               );
