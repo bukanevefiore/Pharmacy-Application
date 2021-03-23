@@ -3,12 +3,16 @@ class Eczane{
   int id;
   String sehirisim;
   String eczaneSayi;
-  String name;
+  String eczanename;
   String telefon;
   String adres;
   String konum;
   String ilceName; //areaName
-  String countPharmacy;
+  int countPharmacy;
+  int eczaneid;
+  String eczanePhone;
+  String eczaneAddress;
+  String eczaneMaps;
 
 /*
 

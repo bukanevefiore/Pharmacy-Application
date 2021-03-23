@@ -1,12 +1,14 @@
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
 import 'package:flutter/material.dart';
+import 'package:pharmacy/screens/eczaneListesiEkrani.dart';
 import 'dart:convert';
 import '../models/eczane.dart';
 
 class Ilceler extends StatefulWidget {
 
-  final int sehirid;
-  Ilceler({this.sehirid});
+  final int id;
+  Ilceler({this.id});
 
   @override
   _IlcelerState createState() => _IlcelerState();
@@ -15,10 +17,11 @@ class Ilceler extends StatefulWidget {
 class _IlcelerState extends State<Ilceler> {
 
   List<Eczane> ilceDizisi=new List<Eczane>();
+  bool yukleniyor=false;
 
   void ilceleriGetir() async {
 
-    print(widget.sehirid);
+    print(widget.id);
 
 
     //https://www.breakingbadapi.com/api/characters
@@ -30,14 +33,16 @@ class _IlcelerState extends State<Ilceler> {
 
 
     setState(() {
-      // print(data['data'][1]);
 
-      for(var i=0; i < tumdata['data'][widget.sehirid]['area'].length; i++){
+
+      for(var i=0; i < tumdata['data'][widget.id-1]['area'].length; i++){
         Eczane k=Eczane();
-        k.countPharmacy=tumdata['data'][widget.sehirid]['area']['countPharmacy'];
-        k.ilceName=tumdata['data'][widget.sehirid]['area']['areaName'];
-
+        k.countPharmacy=i+1;
+        k.ilceName=tumdata['data'][widget.id -1]['area'][i]['areaName'];
+        print(tumdata['data'][widget.id -1]['area'][i]['areaName']);
+        print("\n");
         ilceDizisi.add(k);
+        yukleniyor=true;
 
       }
 
@@ -53,9 +58,13 @@ class _IlcelerState extends State<Ilceler> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return yukleniyor == false ? Scaffold(
+      body: Center(
+        child: SpinKitCubeGrid(color: Color(0xff1e6656),size: 75.0),
+      ),
+    ): Scaffold(
       appBar: AppBar(
-        title: Text('Pharmacy'),
+        title: Text('İlçeler'),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -71,8 +80,8 @@ class _IlcelerState extends State<Ilceler> {
             itemBuilder: (context,index){
               return GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => Ilceler
-                    (sehirid: ilceDizisi[index].id)));
+                  print(ilceDizisi[0].countPharmacy);
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => Eczaneler(ilceid: ilceDizisi[index].countPharmacy,ilid: widget.id)));
                 },
                 child: ListTile(
                   title: Text(ilceDizisi[index].ilceName,style: TextStyle(color:Theme.of(context).scaffoldBackgroundColor,fontWeight: FontWeight.bold,
