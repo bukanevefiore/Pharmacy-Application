@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:pharmacy/fonksiyonlar/card.dart';
 import '../models/eczane.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -71,29 +72,59 @@ class _EczaneAyrintiState extends State<EczaneAyrinti> {
           speed: Duration(milliseconds: 500),
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Center(
-            child: ImageFade(
-              image: AssetImage('assets/resimler/ayrinti.png'),
-              height: 100,
-              alignment: Alignment.center,
-              fit: BoxFit.cover,
-              fadeDuration: Duration(seconds: 3),
-              fadeCurve: Curves.bounceInOut,
+      body: Container(
+        margin: const EdgeInsets.fromLTRB(20, 0, 20, 170),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomCenter,
+                colors: [Theme.of(context).backgroundColor,Theme.of(context).scaffoldBackgroundColor],
+                tileMode: TileMode.mirror
             ),
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(2),
+              topRight: Radius.circular(2),
+              bottomLeft: Radius.circular(2),
+              bottomRight: Radius.circular(2)
           ),
-          SizedBox(
-            height: 10.0,
-            width: 250.0,
-            child: Divider(
-              color: Theme.of(context).accentColor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
             ),
-          )
-        ],
+          ],
+        ),
+        child: Container(
+          margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ImageFade(
+                image: AssetImage('assets/resimler/ayrinti.png'),
+                height: 100,
+                alignment: Alignment.bottomLeft,
+                fit: BoxFit.cover,
+                fadeDuration: Duration(seconds: 3),
+                fadeCurve: Curves.bounceInOut,
+              ),
+              SizedBox(
+                height: 5.0,
+                width: 200.0,
+                child: Divider(
+                  color: Theme.of(context).accentColor,
+                ),
+              ),
+             cardOlusturucu('İsim: ', e.eczanename),
+              cardOlusturucu('Telefon: ', e.eczanePhone),
+              cardOlusturucu('Adres: ', e.eczaneAddress)
+            ],
+          ),
+        ),
       ),
     );
   }
 }
+
