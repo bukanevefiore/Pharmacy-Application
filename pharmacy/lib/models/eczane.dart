@@ -12,7 +12,9 @@ class Eczane{
   int eczaneid;
   String eczanePhone;
   String eczaneAddress;
-  String eczaneMaps;
+  String maps;
+  String eczaneMapsbir;
+  String eczaneMapsiki;
 
 /*
 

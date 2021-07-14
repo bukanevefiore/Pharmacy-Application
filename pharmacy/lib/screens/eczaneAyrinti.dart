@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:pharmacy/fonksiyonlar/card.dart';
+import 'package:pharmacy/screens/harita.dart';
 import '../models/eczane.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:image_fade/image_fade.dart';
+import 'package:flutter_button/flutter_button.dart';
 
 
 class EczaneAyrinti extends StatefulWidget {
 
   final int ilceid,ilid,eczaneid;
   EczaneAyrinti({this.ilceid,this.ilid,this.eczaneid});
+
 
   @override
   _EczaneAyrintiState createState() => _EczaneAyrintiState();
@@ -39,6 +42,7 @@ class _EczaneAyrintiState extends State<EczaneAyrinti> {
       e.eczanePhone=tumdata['data'][widget.ilid-1]['area'][widget.ilceid-1]['pharmacy'][widget.eczaneid-1]['phone'];
       e.eczaneAddress=tumdata['data'][widget.ilid-1]['area'][widget.ilceid-1]['pharmacy'][widget.eczaneid-1]['address'];
 
+
       yukleniyor=true;
     });
 
@@ -55,6 +59,7 @@ class _EczaneAyrintiState extends State<EczaneAyrinti> {
 
   @override
   Widget build(BuildContext context) {
+    var Button;
     return yukleniyor == false ? Scaffold(
       body: Center(
         child: SpinKitCubeGrid(color: Color(0xff1e6656),size: 75.0),
@@ -73,7 +78,7 @@ class _EczaneAyrintiState extends State<EczaneAyrinti> {
         ),
       ),
       body: Container(
-        margin: const EdgeInsets.fromLTRB(20, 0, 20, 170),
+        margin: const EdgeInsets.fromLTRB(20, 0, 20, 140),
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topRight,
@@ -119,12 +124,22 @@ class _EczaneAyrintiState extends State<EczaneAyrinti> {
               ),
              cardOlusturucu('İsim: ', e.eczanename),
               cardOlusturucu('Telefon: ', e.eczanePhone),
-              cardOlusturucu('Adres: ', e.eczaneAddress)
+              cardOlusturucu('Adres: ', e.eczaneAddress),
+              FloatingActionButton(
+                  onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Harita(ilceid: widget.ilceid,ilid: widget.ilid,eczaneid: widget.eczaneid,),
+                      ),
+                  ),
+              ),
             ],
           ),
         ),
+
       ),
     );
+
   }
 }
 
